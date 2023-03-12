@@ -1,10 +1,11 @@
 ﻿namespace Japim
 {
-    class Program
+class Program
     {
         public static void Main(String[] args)
         {
-           Builder.Builder.Run(new string[] {args[0]});
+            if (args.Length > 0) Assembler.Assembler.Run(new string[] {args[0]});
+           else Assembler.Assembler.Run(new string[]{});
         }
     }
 }

@@ -1,0 +1,15 @@
+[root]
+> App[
+    >styles[
+        + main.css
+    ]
+    > pages[
+        + index.html
+        + login.html
+        + error.html
+    ]
+    >scripts[
+        + main.js
+        + interactions.js
+    ]
+]

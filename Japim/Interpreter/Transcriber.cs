@@ -2,34 +2,44 @@
 using Japim.Assets;
 namespace Japim.interpreter
 {
-    class Translate
+    class Transcriber
     {
         public Dictionary<string, ASSET> Structure { protected set; get; }
         public Dictionary<string, string> Metadata { protected set; get; }
-        public static Translate instance = new Translate();
+        public static Transcriber instance = new Transcriber();
 
         private static List<string> openDirs = new List<string>();
 
-        private Translate()
+        private Transcriber()
         {
             Structure = new Dictionary<string, ASSET>();
             Metadata = new Dictionary<string, string>();
         }
 
-        public Dictionary<string, ASSET> TokenService(List<string> content)
+        public Dictionary<string, ASSET> TokenService(string[] content)
         {   
-            string cadeia = "";
-            foreach (string item in content) cadeia += item;
-           
-            return instance.Tokenizer(cadeia);
+            string chain = "";
+            string[] stream = {};
+
+            foreach (string item in content) chain += item;
+            
+            string[] body = chain.Split(Token.ROOT);
+            stream = Spliter(body[1], "/");
+            
+            try
+            {
+                Corrector.Corrector.Read(stream);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
+            return instance.Tokenizer(stream);
         }
 
-        private Dictionary<string, ASSET> Tokenizer(string content)
-        {
-            string[] body = content.Split(Token.ROOT);
-            string root = body[1];
-            string[] material = Spliter(root, "/");
-           
+        private Dictionary<string, ASSET> Tokenizer(string[] material)
+        {           
             int count = 0;
             string? name;
 
@@ -58,11 +68,9 @@ namespace Japim.interpreter
                 else if (item.Equals(Token.ARCHIVE)) Logger(name, ASSET.FILE);
 
                 else if (item.Equals(Token.DIRECTORY_CLOSE)) openDirs.RemoveAt(openDirs.Count - 1); // ... (end of directory) ]
-                 Console.WriteLine(item);
                 count ++;
-            }
-
-            return Structure;
+            }  
+            return Structure; //return info in format of [App, DIRECTORY] and [App\main.cs, FILE]
         }
 
         private static void Logger(string name, ASSET species)

@@ -1,9 +1,9 @@
 using Japim.interpreter;
 using Japim.Assets;
 
-namespace Japim.Builder
+namespace Japim.Assembler
 {
-    class Builder
+    class Assembler
     {
         public static void Run(String[] task)
         {
@@ -16,20 +16,18 @@ namespace Japim.Builder
                 while ((line = file.ReadLine()) != null) content.Add(line);
 
                 file.Close();
-                Build(content);
+                Build(content.ToArray());
             }
             else
             {
                 Console.WriteLine("Expected a build file!");
             }
         }
-        public static void Build(List<string> content)
+        public static void Build(string[] content)
         {
-            Translate translate = Translate.instance;
-            Dictionary<string, ASSET> project = translate.TokenService(content);
+            Transcriber Transcriber = Transcriber.instance;
+            Dictionary<string, ASSET> project = Transcriber.TokenService(content);
             Dictionary<string, string> conectors = new Dictionary<string, string>();
-
-            foreach(var a in content)
             
             foreach(var item in project.Keys)
             {
@@ -37,11 +35,11 @@ namespace Japim.Builder
 
                 if (type == ASSET.FILE)
                 {
-                   File.Create(item);
+                   if (!File.Exists(item)) File.Create(item);
                 }
                 else if (type == ASSET.DIRECTORY)
                 {
-                   Directory.CreateDirectory(item);
+                   if (!Directory.Exists(item)) Directory.CreateDirectory(item);
                 }
             }
         }
