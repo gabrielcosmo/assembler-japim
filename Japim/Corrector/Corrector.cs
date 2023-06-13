@@ -1,3 +1,4 @@
+using Japim.Assets;
 namespace Japim.Corrector
 {
     class Corrector

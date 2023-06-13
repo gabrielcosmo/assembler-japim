@@ -5,6 +5,7 @@ namespace Japim.Assets
     static class Token
     {
         public const string ROOT = "[root]";
+         public const string METADATA = "[metadata]";
         public const string ARCHIVE = "+";
         public const string DIRECTORY_STMT = ">";
         public const string DIRECTORY_OPEN = "[";

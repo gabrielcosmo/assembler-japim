@@ -1,3 +1,7 @@
+[metadata]
+file_name_repeat:false,
+file_name_size:20,
+
 [root]
 > App[
     >styles[

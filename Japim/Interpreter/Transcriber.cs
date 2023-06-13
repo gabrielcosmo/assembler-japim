@@ -23,8 +23,9 @@ namespace Japim.interpreter
 
             foreach (string item in content) chain += item;
             
-            string[] body = chain.Split(Token.ROOT);
-            stream = Spliter(body[1], "/");
+            //string[] body = chain.Split(Token.ROOT);
+            string body = (Decomposer.Decompose(chain))[1];
+            stream = Spliter(body, "/");
             
             try
             {
