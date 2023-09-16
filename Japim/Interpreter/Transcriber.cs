@@ -2,6 +2,9 @@
 using Japim.Assets;
 namespace Japim.interpreter
 {
+    ///<summary>
+    ///Transcribe the raw text of file in a token, that will the base to make the project.
+    ///</summary>
     class Transcriber
     {
         public Dictionary<string, ASSET> Structure { protected set; get; }

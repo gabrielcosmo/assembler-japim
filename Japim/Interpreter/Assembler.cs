@@ -1,8 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+
 using Japim.interpreter;
 using Japim.Assets;
+using Japim.Corrector;
 
 namespace Japim.Assembler
 {
+    ///<summary>
+    ///Execute the creation of the designed project.
+    ///</summary>
     class Assembler
     {
         public static void Run(String[] task)
@@ -29,17 +36,17 @@ namespace Japim.Assembler
             Dictionary<string, ASSET> project = Transcriber.TokenService(content);
             Dictionary<string, string> conectors = new Dictionary<string, string>();
             
-            foreach(var item in project.Keys)
-            {
-                ASSET type = project[item];
+                foreach(var item in project.Keys)
+                {
+                    ASSET type = project[item];
 
-                if (type == ASSET.FILE)
-                {
-                   if (!File.Exists(item)) File.Create(item);
-                }
-                else if (type == ASSET.DIRECTORY)
-                {
-                   if (!Directory.Exists(item)) Directory.CreateDirectory(item);
+                    if (type == ASSET.FILE)
+                    {
+                        if (!File.Exists(item)) File.Create(item);
+                    }
+                    else if (type == ASSET.DIRECTORY)
+                    {
+                        if (!Directory.Exists(item)) Directory.CreateDirectory(item);
                 }
             }
         }
